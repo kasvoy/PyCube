@@ -1,6 +1,5 @@
 import copy
 
-
 UP_FACE =    [['w', 'w', 'w'], ['w', 'w', 'w'], ['w', 'w', 'w']]
 LEFT_FACE =  [['o', 'o', 'o'], ['o', 'o', 'o'], ['o', 'o', 'o']]
 FRONT_FACE = [['g', 'g', 'g'], ['g', 'g', 'g'], ['g', 'g', 'g']]
@@ -10,9 +9,8 @@ DOWN_FACE =  [['y', 'y', 'y'], ['y', 'y', 'y'], ['y', 'y', 'y']]
 
 INITIAL = [UP_FACE, LEFT_FACE, FRONT_FACE, RIGHT_FACE, BACK_FACE, DOWN_FACE]
 
-
 class Cube:
-    def __init__(self, scramble = INITIAL):
+    def __init__(self, scramble = copy.deepcopy(INITIAL)):
 
         self.up_face    = scramble[0]
         self.left_face  = scramble[1]
@@ -41,12 +39,12 @@ class Cube:
         self.state = [self.up_face, self.left_face, self.front_face, self.right_face, self.back_face, self.down_face]
     
     def reset(self):
-        self.up_face = INITIAL[0]
-        self.left_face = INITIAL[1]
-        self.front_face = INITIAL[2]
-        self.right_face = INITIAL[3]
-        self.back_face = INITIAL[4]
-        self.down_face = INITIAL[5]
+        self.up_face = UP_FACE
+        self.left_face = LEFT_FACE
+        self.front_face = FRONT_FACE
+        self.right_face = RIGHT_FACE
+        self.back_face = BACK_FACE
+        self.down_face = DOWN_FACE
 
         self.set_state()
 
