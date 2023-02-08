@@ -1,76 +1,79 @@
-import copy
+import subprocess
+from model import Cube
+import scrambles
 
-class Cube:
-    def __init__(self):
+"""
+Scramble 1: 
+L' D L2 U2 F2 L' D2 R2 F2 L B2 L F2 R B L2 F U L U2 F
 
-        self.up_face =    [['w', 'w', 'w'], ['w', 'w', 'w'], ['w', 'w', 'w']]
-        self.down_face =  [['y', 'y', 'y'], ['y', 'y', 'y'], ['y', 'y', 'y']]
-        self.front_face = [['g', 'g', 'g'], ['g', 'g', 'g'], ['g', 'g', 'g']]
-        self.back_face =  [['b', 'b', 'b'], ['b', 'b', 'b'], ['b', 'b', 'b']]
-        self.left_face =  [['o', 'o', 'o'], ['o', 'o', 'o'], ['o', 'o', 'o']]
-        self.right_face = [['r', 'r', 'r'], ['r', 'r', 'r'], ['r', 'r', 'r']]
-    
-        self.set_state()
+Scramble 2:
+F2 L B D' F' B L F' B2 D' R2 U' F2 R2 U' L2 U2 D' L2 U2 B'
+"""
 
-        """
-        indexing the color of a sticker --> cube[face][row][column]
-        index:
-                0 - UP
-                1 - LEFT
-                2 - FRONT
-                3 - RIGHT
-                4 - BACK
-                5 - DOWN
-        """
-
-
-    def set_state(self):
-        self.state = [self.up_face, self.left_face, self.front_face, self.right_face, self.back_face, self.down_face]
-    
-    def get_state_copy(self):
-        return copy.deepcopy(self.state)
-
-    def rotate_R(self):
-        state = self.get_state_copy()
-        
-        for i in range(3):
-            self.up_face[i][2] = state[2][i][2]
-            self.back_face[i][2] = state[0][i][2]
-            self.down_face[i][2] = state[4][i][2]
-            self.front_face[i][2] = state[5][i][2]
-
-        self.set_state()
-    
-    def rotate_Rprime(self):
-
-        state = self.get_state_copy()
-
-        for i in range(3):
-            self.up_face[i][2] = state[4][i][2]
-            self.back_face[i][2] = state[5][i][2]
-            self.down_face[i][2] = state[2][i][2]
-            self.front_face[i][2] = state[0][i][2]
-        
-        self.set_state()
+#changes state of cube
+def execute_scramble1(cube):
+    cube.rotate_Lprime()
+    cube.rotate_D()
+    cube.rotate_L2()
+    cube.rotate_U2()
+    cube.rotate_F2()
+    cube.rotate_Lprime()
+    cube.rotate_D2()
+    cube.rotate_R2()
+    cube.rotate_F2()
+    cube.rotate_L()
+    cube.rotate_B2()
+    cube.rotate_L()
+    cube.rotate_F2()
+    cube.rotate_R()
+    cube.rotate_B()
+    cube.rotate_L2()
+    cube.rotate_F()
+    cube.rotate_U()
+    cube.rotate_L()
+    cube.rotate_U2()
+    cube.rotate_F()
 
 
-    def __str__(self):
-        up_str = (f"UP FACE:    {self.up_face}\n")
-        left_str = (f"LEFT FACE:  {self.left_face}\n")
-        front_str = (f"FRONT FACE: {self.front_face}\n")
-        right_str = (f"RIGHT FACE: {self.right_face}\n")
-        back_str = (f"BACK FACE:  {self.back_face}\n")
-        down_str = (f"DOWN FACE:  {self.down_face}\n")
 
-        printout = up_str + left_str + front_str + right_str + back_str + down_str
+def execute_scramble2(cube):
+    cube.rotate_F2()
+    cube.rotate_L()
+    cube.rotate_B()
+    cube.rotate_Dprime()
+    cube.rotate_Fprime()
+    cube.rotate_B()
+    cube.rotate_L()
+    cube.rotate_Fprime()
+    cube.rotate_B2()
+    cube.rotate_Dprime()
+    cube.rotate_R2()
+    cube.rotate_Uprime()
+    cube.rotate_F2()
+    cube.rotate_R2()
+    cube.rotate_Uprime()
+    cube.rotate_L2()
+    cube.rotate_U2()
+    cube.rotate_Dprime()
+    cube.rotate_L2()
+    cube.rotate_U2()
+    cube.rotate_Bprime()
 
-        return printout
 
 
-cube = Cube()
+def main():
 
-cube.rotate_Rprime()
-cube.rotate_R()
-print(cube)
+    subprocess.run("clear", shell = True)
 
-        
+    cube = Cube()
+    print("inital:")
+    print(cube,"\n")
+
+
+
+
+
+    execute_scramble1(cube)
+    print(cube)
+if __name__ == "__main__":
+    main()
